@@ -78,6 +78,41 @@
       </header>
       <h1 id="stripe-is-fun">Stripe Is Fun</h1>
 
+<h2 id="quick-start">Quick Start</h2>
+<h3 id="basic-operations">Basic Operations</h3>
+<h4 id="key-concepts-in-stripe">Key Concepts in Stripe:</h4>
+<ul>
+  <li>Card: A simple card. Represent by a token. Can use this token to make an one time payment but not recurring payment.</li>
+  <li>Customer: Centre concept in stripe. A recurring payment can only happen in the user level.</li>
+  <li>Plan: A plan is a special setting for a recurring payment. You can add this plan to any customer.</li>
+  <li>Subscription: We can add a customer to subscript a plan.</li>
+</ul>
+
+<h4 id="stripe-101">Stripe 101</h4>
+<ol>
+  <li>Create a card with Stripe.js elements so key info such as card number, cvv, or expire number won’t go through our server.</li>
+</ol>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">stripe</span> <span class="o">=</span> <span class="nx">Stripe</span><span class="p">(</span><span class="s1">'publishable key'</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nx">stripe</span><span class="p">.</span><span class="nx">elements</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">card</span> <span class="o">=</span> <span class="nx">elements</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="s1">'card'</span><span class="p">);</span>
+<span class="nx">card</span><span class="p">.</span><span class="nx">mount</span><span class="p">(</span><span class="s1">'#card-element'</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">promise</span> <span class="o">=</span> <span class="nx">stripe</span><span class="p">.</span><span class="nx">createToken</span><span class="p">(</span><span class="nx">card</span><span class="p">);</span>
+<span class="nx">promise</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// result.token is the card token.</span>
+  <span class="nx">token</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">token</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<ol>
+  <li>After we get the token, we can make a one time payment directly in the server side with our secret key. Always keep the secret key inside server side. Publish it can make a disaster.</li>
+</ol>
+
+<div class="language-go highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="x">
+</span></code></pre></div></div>
+
       <div class="page-footer">
         <div class="page-share">
           <a href="https://twitter.com/intent/tweet?text=Stripe Is Fun&url=http://localhost:4000/Stripe-Introduction/" title="Share on Twitter" rel="nofollow" target="_blank">Twitter</a>
